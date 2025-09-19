@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../model/user.js';
+import User from '../model/user.model.js';
 import { configDotenv } from 'dotenv';
 configDotenv();
 export const protection = async (req,res,next)=>{
