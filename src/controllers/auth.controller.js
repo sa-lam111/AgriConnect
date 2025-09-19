@@ -6,5 +6,19 @@ export const register = async (req, res) => {
     if (userRegister === "error1") {
         return res.status(402).json({ message: "email already exist" });
     }
-    return res.status(201).json(userRegister);
+    if (userRegister === "error2") {
+        return res.status(409).json({ message: "Phone number already exists" });
+    }
+    return res.status(201).json({ message: "User created successfully", user: userRegister });
 }
+
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+    const result = await authentication.login(email, password);
+
+    if (result.error) {
+        return res.status(401).json({ message: result.error });
+    }
+
+    res.status(200).json(result);
+};
