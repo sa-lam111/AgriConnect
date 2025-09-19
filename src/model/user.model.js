@@ -8,6 +8,7 @@ const userschema=new Schema({
         address:{type:String,required:true},
         
         createAt:{type:Date,default:Date.now},
+        role:{type:String,default:'user'},
           cart:[
                 {
                 product:{
