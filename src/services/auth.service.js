@@ -36,7 +36,6 @@ export const userLogin=async(email,password)=>{
             const token = jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{
             expiresIn:"1h",
         })
-        console.log(token);
         return {token,user};
         }catch(error){
             console.log(error);
@@ -78,7 +77,6 @@ export const farmerLogin=async(email,password)=>{
             const token = jwt.sign({id:farmer._id,role:farmer.role},process.env.JWT_SECRET,{
             expiresIn:"1h",
         })
-        console.log(token);
         return {token,farmer};
         }catch(error){
             console.log(error);
