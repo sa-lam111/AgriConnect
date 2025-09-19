@@ -6,6 +6,7 @@ const userschema=new Schema({
         number:{type:String,required:true,unique:true},
         password:{type:String,required:true},
         address:{type:String,required:true},
+        
         createAt:{type:Date,default:Date.now},
         role:{type:String,default:'user'},
           cart:[

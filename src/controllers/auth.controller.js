@@ -6,42 +6,61 @@ export const userRegister = async (req, res) => {
     if (userRegister === "error1") {
         return res.status(402).json({ message: "email already exist" });
     }
-    if(!userRegister){
-        return res.status(400).json({message:"invalid credentials"});
-    }
-    return res.status(201).json(userRegister);
-}
-export const userLogin = async (req,res)=>{
-    const {email,password}=req.body;
-    const userLogin=await authentication.userLogin(email,password);
-    if(userLogin==="error1"){
-        return res.status(409).json({message:"Email not found please register"});
-    }
-    if(userLogin==="error2"){
-        return res.status(409).json({message:"Password incorrect"});
-    }
-    res.status(200).json(userLogin);
-}
-// fArmer signup and login
-export const farmerRegister = async (req, res) => {
-    const { name, email, number, password, address } = req.body;
-    const farmerRegister = await authentication.farmerRegister(name, email, number, password, address);
-    if (farmerRegister === "error1") {
-        return res.status(402).json({ message: "email already exist" });
-    }
-    if (!farmerRegister) {
-        return res.status(400).json({ message: "invalid credentials" });
-    }
-    return res.status(201).json(farmerRegister);
-}
-export const farmerLogin = async (req,res)=>{
-    const {email,password}=req.body;
-    const farmerLogin=await authentication.farmerLogin(email,password);
-    if(farmerLogin==="error1"){
-        return res.status(409).json({message:"Email not found please register"});
-    }
-    if(farmerLogin==="error2"){
-        return res.status(409).json({message:"Password incorrect"});
-    }
-    res.status(200).json(farmerLogin);
-}
+// <<<<<<< main
+//     if(!userRegister){
+//         return res.status(400).json({message:"invalid credentials"});
+//     }
+//     return res.status(201).json(userRegister);
+// }
+// export const userLogin = async (req,res)=>{
+//     const {email,password}=req.body;
+//     const userLogin=await authentication.userLogin(email,password);
+//     if(userLogin==="error1"){
+//         return res.status(409).json({message:"Email not found please register"});
+//     }
+//     if(userLogin==="error2"){
+//         return res.status(409).json({message:"Password incorrect"});
+//     }
+//     res.status(200).json(userLogin);
+// }
+// // fArmer signup and login
+// export const farmerRegister = async (req, res) => {
+//     const { name, email, number, password, address } = req.body;
+//     const farmerRegister = await authentication.farmerRegister(name, email, number, password, address);
+//     if (farmerRegister === "error1") {
+//         return res.status(402).json({ message: "email already exist" });
+//     }
+//     if (!farmerRegister) {
+//         return res.status(400).json({ message: "invalid credentials" });
+//     }
+//     return res.status(201).json(farmerRegister);
+// }
+// export const farmerLogin = async (req,res)=>{
+//     const {email,password}=req.body;
+//     const farmerLogin=await authentication.farmerLogin(email,password);
+//     if(farmerLogin==="error1"){
+//         return res.status(409).json({message:"Email not found please register"});
+//     }
+//     if(farmerLogin==="error2"){
+//         return res.status(409).json({message:"Password incorrect"});
+//     }
+//     res.status(200).json(farmerLogin);
+// }
+// =======
+//     if (userRegister === "error2") {
+//         return res.status(409).json({ message: "Phone number already exists" });
+//     }
+//     return res.status(201).json({ message: "User created successfully", user: userRegister });
+// }
+
+// export const login = async (req, res) => {
+//     const { email, password } = req.body;
+//     const result = await authentication.login(email, password);
+
+//     if (result.error) {
+//         return res.status(401).json({ message: result.error });
+//     }
+
+//     res.status(200).json(result);
+// };
+// >>>>>>> main
