@@ -1,5 +1,16 @@
 import {Schema,model} from 'mongoose';
+import {Schema,model} from 'mongoose';
 
+const farmerschema=new Schema({
+        name:{type:String,required:true},
+        email:{type:String, required:true,unique:true},
+        number:{type:String,required:true,unique:true},
+        password:{type:String,required:true},
+        address:{type:String,required:true},
+        createAt:{type:Date,default:Date.now},
+        role:{type:String,default:'farmer'},
+        location:{type:String,enum:['Ilorin','Offa'],default:'Ilorin'},
+})
 const farmerschema=new Schema({
         name:{type:String,required:true},
         email:{type:String, required:true,unique:true},

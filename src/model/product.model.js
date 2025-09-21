@@ -8,7 +8,7 @@ const productSchema = new Schema({
     category: { type: String, required: true },
     seller: {
         type: Schema.Types.ObjectId,
-        ref: 'FarmerProfile',
+        ref: 'Farmer',
         required: true
     },
     imageUrl: { type: String, required: false }
