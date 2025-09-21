@@ -1,4 +1,3 @@
-<<<<<<< main
 import {Schema,model} from 'mongoose';
 
 const farmerschema=new Schema({

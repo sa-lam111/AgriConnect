@@ -4,8 +4,9 @@ import mongoose from 'mongoose';
 import User from '../src/model/user.model.js';
 import Product from '../src/model/product.model.js';
 import jwt from 'jsonwebtoken';
+import { configDotenv } from 'dotenv';
 
-
+configDotenv();
 
 describe('/api/products', () => {
     let token;
@@ -13,7 +14,7 @@ describe('/api/products', () => {
 
     beforeAll(async () => {
         console.log('Connecting to database...');
-        const url = `mongodb://localhost:27017/agriconnect-test`;
+        const url = process.env.MONGO_URL.replace('/?retryWrites=true&w=majority&appName=Agriconnect-all', '/agriconnect-test?retryWrites=true&w=majority&appName=Agriconnect-all');
         await mongoose.connect(url, { useNewUrlParser: true });
         console.log('Database connected. Connection state:', mongoose.connection.readyState);
 
@@ -22,8 +23,7 @@ describe('/api/products', () => {
         await user.save();
         userId = user._id;
 
-      
-        // token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
     });
 
     afterAll(async () => {
