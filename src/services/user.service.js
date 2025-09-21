@@ -11,7 +11,7 @@ export const getAllFarmers=async()=>{
 }
 export const getFarmerById=async(id)=>{
     try {
-          const farmer=await Farmer.findById(id);
+          const farmer=await Farmer.findById(id).select("name email number address location");
     return farmer;  
     } catch (error) {
         console.log(error);
@@ -21,8 +21,8 @@ export const getFarmerById=async(id)=>{
 }
 export const getFarmerByEmail=async(email)=>{
     try {
-         const farmer=await Farmer.findOne(email);
-    return farmer
+         const farmer=await Farmer.findOne({email}).select("name email number address location");
+    return farmer;
     } catch (error) {
         console.log(error);
         return null;

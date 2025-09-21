@@ -19,7 +19,7 @@ export const getFarmerByEmail=async(req,res)=>{
     const {email}=req.body;
     const getByEmail=await userService.getFarmerByEmail(email);
     if(!getByEmail){
-        return res.status(400),json({errorMessage:"No farmer found with this email"})
+        return res.status(400).json({errorMessage:"No farmer found with this email"})
     }
     res.status(200).json(getByEmail);
 }
