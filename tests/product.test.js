@@ -19,7 +19,7 @@ describe('/api/products', () => {
         console.log('Database connected. Connection state:', mongoose.connection.readyState);
 
         // Create a user and get a token
-        const user = new User({ name: 'Test User', email: 'test@gmail.com', password: 'password123', number: '1234567890', address: '123 Test St' });
+        const user = new User({ name: 'Test User', email: 'productuser@test.com', password: 'password123', number: '1234567890', address: '123 Test St' });
         await user.save();
         userId = user._id;
 
