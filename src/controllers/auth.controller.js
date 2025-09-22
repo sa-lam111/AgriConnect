@@ -1,4 +1,4 @@
-import * as authentication from '../services/auth.service.js';
+import * as authService from '../services/auth.service.js';
 
 export const userRegister = async (req, res) => {
     const { name, email, number, password, address } = req.body;
@@ -45,3 +45,4 @@ export const farmerLogin = async (req,res)=>{
     }
     res.status(200).json(farmerLogin);
 }
+};
