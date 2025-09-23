@@ -3,85 +3,87 @@ import Farmer from '../model/Farmerprofile.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { sendWelcomeEmail } from './mail.service.js';
-
-export const registerUser = async (name, email, number, password, address) => {
-    const emailExists = await User.findOne({ email });
-    if (emailExists) {
-        throw new Error("Email already exists");
+// user register and login
+export const userRegister=async(name,email,number,password,address)=>{
+    const emailAddress=await User.findOne({email});
+    if(emailAddress){
+        return ("error1");
     }
-
-    const numberExists = await User.findOne({ number });
-    if (numberExists) {
-        throw new Error("Phone number already exists");
+    else{
+        try{
+            const salt=await bcrypt.genSalt(10);
+            const hashedPassword=await bcrypt.hash(password,salt);
+            const user=new User({
+                name,email,number,password:hashedPassword,address
+            }) 
+             await user.save();
+           await sendWelcomeEmail(email, name);
+             return user;
+        }catch(error){
+            console.log(error);
+            return null;
+        }
     }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const user = new User({
-        name, email, number, password: hashedPassword, address
-    });
-
-    await user.save();
-    await sendWelcomeEmail(email, name);
-    return user;
-};
-
-export const login = async (email, password) => {
-    const user = await User.findOne({ email });
-    if (!user) {
-        throw new Error('Invalid credentials');
+}
+export const userLogin=async(email,password)=>{
+    const user=await User.findOne({email:email});
+    if(!email){
+        return ("error1");
+    }else{
+        try{
+            const isMatch=await bcrypt.compare(password,user.password);
+            if(!isMatch){
+                return ("error2");
+            }
+            const token = jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{
+            expiresIn:"1h",
+        })
+        return {token,user};
+        }catch(error){
+            console.log(error);
+            return null;
+        }
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        throw new Error('Invalid credentials');
+}
+// former register and login
+export const farmerRegister=async(name,email,number,password,address)=>{
+    const emailAddress=await Farmer.findOne({email});
+    if(emailAddress){
+        return ("error1");
     }
-
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-    });
-
-    return { token, user };
-};
-
-export const registerFarmer = async (name, email, number, password, address, location) => {
-    const emailExists = await Farmer.findOne({ email });
-    if (emailExists) {
-        throw new Error("Email already exists");
+    else{
+        try{
+            const salt=await bcrypt.genSalt(10);
+            const hashedPassword=await bcrypt.hash(password,salt);
+            const farmer=new Farmer({
+                name,email,number,password:hashedPassword,address
+            }) 
+             await farmer.save();
+           await sendWelcomeEmail(email, name);
+             return farmer;
+        }catch(error){
+            console.log(error);
+            return null;
+        }
     }
-
-    const numberExists = await Farmer.findOne({ number });
-    if (numberExists) {
-        throw new Error("Phone number already exists");
+}
+export const farmerLogin=async(email,password)=>{
+    const farmer=await Farmer.findOne({email:email});
+    if(!email){
+        return ("error1");
+    }else{
+        try{
+            const isMatch=await bcrypt.compare(password,farmer.password);
+            if(!isMatch){
+                return ("error2");
+            }
+            const token = jwt.sign({id:farmer._id,role:farmer.role},process.env.JWT_SECRET,{
+            expiresIn:"1h",
+        })
+        return {token,farmer};
+        }catch(error){
+            console.log(error);
+            return null;
+        }
     }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const farmer = new Farmer({
-        name, email, number, password: hashedPassword, address, location
-    });
-
-    await farmer.save();
-    await sendWelcomeEmail(email, name);
-    return farmer;
-};
-
-export const loginFarmer = async (email, password) => {
-    const farmer = await Farmer.findOne({ email });
-    if (!farmer) {
-        throw new Error('Invalid credentials');
-    }
-
-    const isMatch = await bcrypt.compare(password, farmer.password);
-    if (!isMatch) {
-        throw new Error('Invalid credentials');
-    }
-
-    const token = jwt.sign({ id: farmer._id, role: 'farmer' }, process.env.JWT_SECRET, {
-        expiresIn: '1h',
-    });
-
-    return { token, farmer };
-};
+}

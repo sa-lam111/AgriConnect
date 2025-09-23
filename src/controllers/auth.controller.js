@@ -1,41 +1,48 @@
 import * as authService from '../services/auth.service.js';
 
-export const register = async (req, res) => {
-    try {
-        const { name, email, number, password, address } = req.body;
-        const user = await authService.registerUser(name, email, number, password, address);
-        res.status(201).json({ message: "User registered successfully", user });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+export const userRegister = async (req, res) => {
+    const { name, email, number, password, address } = req.body;
+    const userRegister = await authentication.userRegister(name, email, number, password, address);
+    if (userRegister === "error1") {
+        return res.status(402).json({ message: "email already exist" });
     }
-};
-
-export const login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const { token, user } = await authService.login(email, password);
-        res.status(200).json({ token, user });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    if(!userRegister){
+        return res.status(400).json({message:"invalid credentials"});
     }
-};
-
-export const registerFarmer = async (req, res) => {
-    try {
-        const { name, email, number, password, address, location } = req.body;
-        const farmer = await authService.registerFarmer(name, email, number, password, address, location);
-        res.status(201).json({ message: "Farmer registered successfully", farmer });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    return res.status(201).json(userRegister);
+}
+export const userLogin = async (req,res)=>{
+    const {email,password}=req.body;
+    const userLogin=await authentication.userLogin(email,password);
+    if(userLogin==="error1"){
+        return res.status(409).json({message:"Email not found please register"});
     }
-};
-
-export const loginFarmer = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const { token, farmer } = await authService.loginFarmer(email, password);
-        res.status(200).json({ token, farmer });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    if(userLogin==="error2"){
+        return res.status(409).json({message:"Password incorrect"});
     }
+    res.status(200).json(userLogin);
+}
+// fArmer signup and login
+export const farmerRegister = async (req, res) => {
+    const { name, email, number, password, address } = req.body;
+    const farmerRegister = await authentication.farmerRegister(name, email, number, password, address);
+    if (farmerRegister === "error1") {
+        return res.status(402).json({ message: "email already exist" });
+    }
+    if (!farmerRegister) {
+        return res.status(400).json({ message: "invalid credentials" });
+    }
+    return res.status(201).json(farmerRegister);
+}
+export const farmerLogin = async (req,res)=>{
+    const {email,password}=req.body;
+    const farmerLogin=await authentication.farmerLogin(email,password);
+    if(farmerLogin==="error1"){
+        return res.status(409).json({message:"Email not found please register"});
+    }
+    if(farmerLogin==="error2"){
+        return res.status(409).json({message:"Password incorrect"});
+    }
+    res.status(200).json(farmerLogin);
+}
 };

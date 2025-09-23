@@ -1,11 +1,13 @@
 import {Router} from 'express';
-import { register, login, registerFarmer, loginFarmer } from '../controllers/auth.controller.js';
+import { userRegister,userLogin,farmerRegister,farmerLogin } from '../controllers/auth.controller.js';
 
-const router = Router();
+const router=Router();
 
-// User routes
-router.post('/register', register);
-router.post('/login', login);
+router.post('/uRegister',userRegister);
+router.post('/uLogin',userLogin);
+router.post('/fRegister',farmerRegister);
+router.post('/fLogin',farmerLogin);
+
 
 // Farmer routes
 router.post('/farmer/register', registerFarmer);

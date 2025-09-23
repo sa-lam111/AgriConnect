@@ -10,6 +10,5 @@ const farmerschema=new Schema({
         role:{type:String,default:'farmer'},
         location:{type:String,enum:['Ilorin','Offa'],default:'Ilorin'},
 })
-
 const Farmer=model('Farmer',farmerschema);
 export default Farmer;
