@@ -11,10 +11,10 @@ export const createProduct = async (req, res) => {
 }
 
 export const getProducts = async (req, res) => {
-    const products = await productService.getProducts();
-    if (products) {
+    try {
+        const products = await productService.getProducts();
         res.status(200).json(products);
-    } else {
-        res.status(500).json({ message: 'Failed to get products' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get products', error: error.message });
     }
 }
