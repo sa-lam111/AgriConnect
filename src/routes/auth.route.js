@@ -9,8 +9,4 @@ router.post('/fRegister',farmerRegister);
 router.post('/fLogin',farmerLogin);
 
 
-// Farmer routes
-router.post('/farmer/register', registerFarmer);
-router.post('/farmer/login', loginFarmer);
-
 export default router;

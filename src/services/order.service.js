@@ -1,4 +1,5 @@
 import Order from '../model/order.model.js';
+import User from '../model/user.model.js';
 
 export const createOrder = async (orderData) => {
     const order = new Order(orderData);

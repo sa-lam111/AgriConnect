@@ -12,3 +12,12 @@ export const createReview = async (productId,id,rating,comment) => {
 
 };
 
+export const getReviewsByProductId= async(productId)=>{
+    try {
+        const review=await Review.find({productId})
+        return review;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
