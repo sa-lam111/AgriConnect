@@ -26,3 +26,15 @@ export const getProductsByFarmerId=async(req,res)=>{
     }
     res.status(200).json(product);
 }
+export const editProduct=async(req,res)=>{
+    const { productId,description,price,quantity }=req.body;
+    const farmerId=req.farmer.id;
+    const product=await productService.editProduct(productId,description,price,quantity,farmerId);
+    if(product==="error1"){
+        return res.status(404).json({message:"Product Not found"});
+    }
+    if(!product){
+        return res.status(401).json({message:"Update unsuccesful"});
+    }
+    res.status(200).json({message:"All edit successful "});
+}

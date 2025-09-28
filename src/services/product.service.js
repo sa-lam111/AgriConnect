@@ -33,3 +33,28 @@ export const getProductsByFarmerId=async(farmerId)=>{
     }
 
 }
+export const editProduct=async(productId,description,price,quantity,farmerId)=>{
+    try {
+        const product=await Product.findById(productId);
+        if(!product){
+            return ("error1");
+        }
+        if(description===""){
+            description=product.description;
+        }
+        if(price===""){
+            price=product.price;
+        }
+        if(quantity===""){
+            quantity=product.quantity;
+        }
+        if(farmerId!==product.seller.toString()){
+            return null;
+        }
+        const update=await Product.findByIdAndUpdate(productId,{description,price,quantity});
+        return update;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
