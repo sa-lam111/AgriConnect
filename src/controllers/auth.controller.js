@@ -27,7 +27,7 @@ export const farmerRegister = async (req, res) => {
     const { name, email, number, password, address } = req.body;
     const farmerRegister = await authentication.farmerRegister(name, email, number, password, address);
     if (farmerRegister === "error1") {
-        return res.status(402).json({ message: "email already exist" });
+        return res.status(400).json({ message: "email already exist" });
     }
     if (!farmerRegister) {
         return res.status(400).json({ message: "invalid credentials" });

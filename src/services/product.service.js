@@ -23,6 +23,17 @@ export const getProducts = async () => {
    
 }
 
+export const getProductsForFarmer=async(farmerId)=>{
+    try {
+        const products=await Product.find({seller:farmerId});
+        return products;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+
+}
+
 export const getProductsByFarmerId=async(farmerId)=>{
     try {
         const products=await Product.find({seller:farmerId});
@@ -32,6 +43,18 @@ export const getProductsByFarmerId=async(farmerId)=>{
         return null;
     }
 
+}
+export const deleteProduct=async(productId)=>{
+    try {
+        const deleted=await Product.findByIdAndDelete(productId);
+        if(!deleted){
+            return ("error1");
+        }
+        return deleted;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
 }
 export const editProduct=async(productId,description,price,quantity,farmerId)=>{
     try {

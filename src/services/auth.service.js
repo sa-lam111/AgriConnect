@@ -59,7 +59,7 @@ export const farmerRegister=async(name,email,number,password,address)=>{
                 name,email,number,password:hashedPassword,address
             }) 
              await farmer.save();
-           await sendWelcomeEmail(email, name);
+           sendWelcomeEmail(email, name);
              return farmer;
         }catch(error){
             console.log(error);

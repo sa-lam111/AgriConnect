@@ -22,15 +22,4 @@ Welcome to AgriConnect! We are excited to have you on board.
 Best regards,
 The AgriConnect Team`,
   };
-
-  try {
-    console.log('Sending welcome email to:', to);
-    console.log('Mail options:', mailOptions);
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Welcome email sent successfully.');
-    console.log('Message ID:', info.messageId);
-    console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
-  } catch (error) {
-    console.error('Error sending welcome email:', error);
-  }
 };
