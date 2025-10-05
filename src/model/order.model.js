@@ -12,11 +12,6 @@ const orderSchema = new Schema({
         type: Number,
         required: true,
     },
-    status: {
-        type: String,
-        enum: ['Pending', 'Shipped', 'Delivered'],
-        default: 'Pending',
-    },
     payment: {
         method: {
             type: String,
