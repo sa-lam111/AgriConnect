@@ -5,7 +5,6 @@ const productSchema = new Schema({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true },
-    category: { type: String, required: true },
     seller: {
         type: Schema.Types.ObjectId,
         ref: 'Farmer',

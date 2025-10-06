@@ -15,6 +15,14 @@ export const getFarmerById=async(req,res)=>{
     }
     res.status(200).json(getFarmerById);
 }
+export const getTheFarmer=async(req,res)=>{
+    const {id}=req.farmer;
+    const getTheFarmer=await userService.getTheFarmer(id);
+     if(!getTheFarmer){
+        return res.status(400),json({errorMessage:"No farmer found with this id"})
+    }
+    res.status(200).json(getTheFarmer);
+}
 export const getFarmerByEmail=async(req,res)=>{
     const {email}=req.body;
     const getByEmail=await userService.getFarmerByEmail(email);

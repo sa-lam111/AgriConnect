@@ -1,42 +1,33 @@
-import { Schema, model } from 'mongoose';
+import { Schema,model } from 'mongoose';
 
 const orderSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    products: [
-        {
-            product: {
-                type: Schema.Types.ObjectId,
-                ref: 'Product',
-                required: true
-            },
-            quantity: {
-                type: Number,
-                required: true
-            }
-        }
-    ],
-    totalAmount: {
-        type: Number,
-        required: true
-    },
-    status: {
-        type: String,
-        enum: ['pending', 'shipped', 'delivered'],
-        default: 'pending'
-    },
-    shippingAddress: {
-        type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
+  user: { type: Schema.Types.ObjectId, ref: "User", required:true },
+  items:[
+    {
+      product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+      quantity: { type: Number, required: true, default: 1 }
     }
-});
+  ],
+ total: {
+        type: Number,
+        required: true,
+    },
+    payment: {
+        method: {
+            type: String,
+            enum: ['Cash on Delivery', 'Paystack'],
+            default: 'Cash on Delivery'
+        },
+        status: {
+            type: String,
+            enum: ['Pending', 'Paid', 'Failed'],
+            default: 'Pending'
+        },
+        reference: {
+            type: String,
+        }
+    }
+}, { timestamps: true });
 
 const Order = model('Order', orderSchema);
 
